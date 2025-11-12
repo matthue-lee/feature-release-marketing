@@ -11,12 +11,12 @@ from generate import CONTENT_SPECS
 from pipeline import DEFAULT_TYPES, create_client, run_assets, run_summary
 
 APP_DESCRIPTION = (
-    "Expose the Document Compare marketing pipeline via HTTP so tools like Zapier "
+    "Expose the Feature marketing pipeline via HTTP so tools like Zapier "
     "or n8n can trigger summaries and channel-specific assets on demand."
 )
 
 app = FastAPI(
-    title="Document Compare Marketing API",
+    title="Feature Marketing API",
     description=APP_DESCRIPTION,
     version="0.1.0",
 )
@@ -136,7 +136,7 @@ def api_assets(payload: AssetRequest) -> AssetResponse:
             temperature=payload.asset_temperature,
             max_tokens=payload.asset_max_tokens,
         )
-    except Exception as exc:  # pragma: no cover
+    except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     return AssetResponse(assets=assets)
 
@@ -166,6 +166,6 @@ def api_pipeline(payload: PipelineRequest) -> PipelineResponse:
         )
     except HTTPException:
         raise
-    except Exception as exc:  # pragma: no cover
+    except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     return PipelineResponse(launch_brief=launch_brief, assets=assets)

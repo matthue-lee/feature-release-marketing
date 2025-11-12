@@ -18,6 +18,7 @@ Utilities and prompts for turning raw source documents about Genie AI's **Docume
 - Python 3.10+
 - `pypdf` (for PDF extraction)
 - `openai` (for Responses API access in `pipeline.py` or notebooks)
+- `python-docx` (for exporting Markdown drafts to Word)
 
 ```bash
 python -m pip install pypdf openai
@@ -27,17 +28,12 @@ python -m pip install pypdf openai
 
 ## Typical workflow
 
-1. **Ingest** – Either open the notebook or run `python main.py`. This reads every DOCX/PDF inside `docs_in/`, returning a list of `{name, text}` objects for further processing.
+1. **Ingest** – Either open the notebook or run `python ingest.py`. This reads every DOCX/PDF inside `docs_in/`, returning a list of `{name, text}` objects for further processing.
 2. **Summarise** – In the notebook, call `from summarise import collate_sources, build_prompt` to generate the comprehensive launch brief (or run `python summarise.py`). Paste that prompt into OpenAI to produce the structured summary.
 3. **Generate assets** – Once you have the Markdown launch brief, feed it into `generate.py` (or the helper function inside your notebook) to produce channel-specific prompts and generate the copy with OpenAI.
 4. **Pipeline (optional)** – Use `pipeline.py` to automate steps 1–3 and save the resulting Markdown files to `outputs/`.
 
 ## CLI usage
-
-### Inspect the ingested docs
-```bash
-python main.py
-```
 
 ### Build a launch-brief prompt
 ```bash
@@ -103,14 +99,27 @@ payload = build_payload("linkedin", summary_output)
 
 Refer to `generate.py` for a convenience `generate_asset()` pattern that wraps OpenAI’s API client.
 
+### Convert Markdown outputs to Word docs
+
+Use the helpers in `export.py` once you have Markdown drafts:
+
+```python
+from export import markdown_to_docx, markdown_file_to_docx
+
+# Convert in-memory Markdown
+markdown_to_docx(assets["newsletter"], "outputs/newsletter.docx", title="Newsletter Draft")
+
+# Or convert an existing .md file (writes outputs/launch_brief.docx)
+markdown_file_to_docx("outputs/launch_brief.md")
+```
+
 ## Testing
 
-- `python main.py`
 - `python summarise.py | head`
 - `python generate.py linkedin -s launch_brief.md | head`
 
 ## Notes
 
-- Keep the raw documents inside `task-feature-information/` up to date; rerun ingestion whenever they change.
+- Keep the raw documents inside `docs_in/` up to date; rerun ingestion whenever they change.
 - The launch brief is the single source of truth for `generate.py`. Update the brief before regenerating marketing copy.
 - If you modify helper modules after importing them in the notebook, restart the kernel or `importlib.reload(...)` to pick up the changes.
