@@ -6,15 +6,17 @@ import argparse
 import os
 import sys
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Dict, Iterable, List, Optional
+
+import requests
 
 from generate import CONTENT_SPECS, build_payload
 from summarise import build_prompt
 
-try:  # Optional until user actually runs the pipeline
+try:
     from openai import OpenAI
-except ImportError:  # pragma: no cover - handled at runtime
-    OpenAI = None  # type: ignore
+except ImportError:
+    OpenAI = None
 
 
 DEFAULT_TYPES: List[str] = list(CONTENT_SPECS.keys())
@@ -123,7 +125,7 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
         default=400,
         help="Number of characters to show during approval previews (default: 400)",
     )
-    return parser.parse_args(list(argv) if argv is not None else None)
+
 
 
 def request_approval(
@@ -159,6 +161,7 @@ def print_prompts(types: Iterable[str]) -> None:
         print(f"# {content_type.upper()} PROMPT")
         print(f"system = \"\"\"{payload['system']}\"\"\"")
         print(f"user = \"\"\"{payload['user']}\"\"\"\n")
+
 
 
 def main(argv: Iterable[str] | None = None) -> None:

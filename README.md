@@ -19,9 +19,10 @@ Utilities and prompts for turning raw source documents about Genie AI's **Docume
 - `pypdf` (for PDF extraction)
 - `openai` (for Responses API access in `pipeline.py` or notebooks)
 - `python-docx` (for exporting Markdown drafts to Word)
+- `requests` (for Slack notifications in the CLI pipeline)
 
 ```bash
-python -m pip install pypdf openai
+python -m pip install -r requirements.txt
 ```
 
 > The DOCX parser is implemented via `zipfile` + `xml.etree`, so no extra dependency is required.
@@ -56,6 +57,7 @@ This will:
 1. Ingest every file in `docs_in/`.
 2. Ask OpenAI to produce the launch brief, show you a preview, and (if approved) write it to `outputs/launch_brief.md` (override via `--summary-output`).
 3. Generate LinkedIn, newsletter, and blog drafts; each preview pauses for approval before saving to `outputs/<type>.md`.
+4. (Optional) Post launch brief + drafts to Slack for review when `SLACK_WEBHOOK_URL` or `--slack-webhook-url` is configured.
 
 Common flags:
 - `linkedin newsletter` – limit asset generation to specific channels.
@@ -63,6 +65,7 @@ Common flags:
 - `--dry-run` – print the prompts without calling OpenAI.
 - `--auto-approve` – skip all approval prompts (useful for CI once you're confident in the flow).
 - `--preview-chars 600` – increase/decrease how much text is shown in each approval gate.
+- `--slack-webhook-url https://hooks.slack.com/...` – push each draft preview to Slack before the approval prompt (or set `SLACK_WEBHOOK_URL`).
 
 ### Serve the HTTP API (for Zapier/n8n integrations)
 ```bash
