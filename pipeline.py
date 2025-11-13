@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 from uuid import uuid4
+import markdown as md
 
 import requests
 from dotenv import load_dotenv
@@ -476,7 +477,7 @@ def main(argv: Iterable[str] | None = None) -> None:
                     system_prompt=args.email_system_prompt,
                     newsletter_markdown=text,
                 )
-                plain_body = markdown_to_text(prepared_body)
+                html_body = md.markdown(prepared_body)
                 send_email(
                     smtp_host=email_settings["host"],
                     smtp_port=email_settings["port"],
@@ -484,7 +485,7 @@ def main(argv: Iterable[str] | None = None) -> None:
                     password=email_settings["password"],
                     use_tls=email_settings["use_tls"],
                     subject=subject,
-                    body=plain_body,
+                    body=html_body,
                     sender=email_settings["sender"],
                     recipients=email_settings["recipients"],
                 )
