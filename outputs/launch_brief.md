@@ -1,54 +1,55 @@
-### Launch Brief for Document Compare Feature
+### Launch Brief: Document Compare Feature
 
 #### 1. Executive Summary
-The Document Compare feature is designed to streamline the review process for legal documents by providing users with instant visibility into changes between versions. This native tool enhances efficiency for founders and executives, allowing them to focus on critical content rather than tedious manual comparisons.
+The Document Compare feature is designed to streamline the review process for legal documents, enabling users to quickly identify changes between versions. By providing a native diff engine within Genie’s real-time editor, this feature addresses significant pain points for founders and executives who often struggle with tedious document comparisons.
 
 #### 2. Customer Insights
 - **Pain Points:**
-  - Manual scrolling between documents is time-consuming and frustrating (Source 1).
-  - Difficulty in understanding changes without legal expertise (Source 1).
-  - Need for quick sharing of changes with co-founders or team members (Source 1).
-  
+  - Manual scrolling between documents is time-consuming and frustrating ("I hate manually scrolling between two Word docs").
+  - Difficulty in understanding changes without legal expertise ("Redlines are a nightmare when you’re not a lawyer").
+  - Need for quick sharing of changes with colleagues ("Sometimes I just need to share the changes with my cofounder quickly").
+
 - **Desired Outcomes:**
-  - Instant visibility of changes to save time and reduce errors (Source 4).
-  - Ability to share clear, unified redlines with stakeholders (Source 5).
-  - Increased frequency of document reviews to enhance operational efficiency (Source 3).
+  - Instant visibility of changes without needing to read everything again ("I just want to see what changed, not read everything again").
+  - A more efficient review process to save time and reduce reliance on legal counsel ("This would save me from begging our counsel to check every clause").
 
 #### 3. Product & Engineering Details
-- **Scope:**
-  - Native diff engine integrated into Genie’s real-time editor, allowing comparisons between Genie docs and external files (Source 2).
-  
-- **Status:**
-  - Currently in beta version 0.9, with ongoing improvements planned (Source 2).
-  
+- **Scope:** 
+  - Native diff engine built into Genie’s editor, allowing comparison of Genie docs and external files (DOCX, PDFs).
+  - Outputs include side-by-side and unified diff views.
+
+- **Status:** 
+  - Currently in beta (Version 0.9).
+
 - **Differentiators:**
-  - Offers both side-by-side and unified diff views, which are exportable for easy sharing (Source 4).
-  - Built-in functionality without reliance on third-party plugins (Source 4).
-  
+  - Integrated feature, not reliant on third-party plugins, enhancing user experience and trust.
+  - AI integration planned for future enhancements to summarize changes and flag risky clauses.
+
 - **Blockers:**
-  - Unreliable PDF extraction may hinder comparisons (Source 2).
-  - Performance issues with documents over 100 pages (Source 2).
+  - Unreliable PDF extraction and performance degradation with documents over 100 pages.
+  - False conflicts due to parallel edits, requiring improvements in locking mechanisms.
 
 #### 4. Messaging Pillars & Proof Points
-- **Time-Saving:** "Instant redlines, effortless review" allows users to focus on what matters most (Source 4).
-- **User-Friendly:** Designed for non-lawyers, making complex legal reviews accessible (Source 5).
-- **Trustworthy Outputs:** Deterministic diff outputs ensure legal reliability and auditability (Source 3).
+- **Time-Saving:** "Instant redlines, effortless review" allows users to focus on what matters.
+- **User Trust:** Deterministic output ensures legal reliability—"same input always = same output."
+- **Enhanced Collaboration:** Share clean, unified redlines easily, facilitating better communication with investors and counterparties.
 
 #### 5. Launch Risks / Open Questions
-- **Open Questions:**
-  - How will we address the PDF extraction reliability issue before launch?
-  - What strategies will be implemented to improve performance for larger documents?
-  - Should we include the "AI explain the diff" feature in the initial launch or position it as a future enhancement?
+- Reliability of PDF extraction and handling of large documents (>100 pages).
+- Clarity on how to position the upcoming AI features without cannibalizing existing products.
+- Confirmation of metrics for success post-launch (e.g., % of Pro Plan companies using Compare 2+ times per week).
 
 #### 6. Recommended Next Steps
 - **Marketing:**
-  - Develop launch content emphasizing time savings and ease of use.
-  - Prepare educational materials to help users understand the feature's benefits.
-  
+  - Develop launch content emphasizing time savings and user trust.
+  - Prepare a blog post highlighting the feature and its benefits, including a "coming soon" note on AI enhancements.
+
 - **Product:**
-  - Prioritize resolving known issues related to PDF extraction and performance.
-  - Finalize the implementation of the “AI explain the diff” feature for future updates.
+  - Address known issues related to PDF extraction and performance.
+  - Finalize the user interface for the AI summary sidebar for future iterations.
 
 - **Engineering:**
-  - Continue testing the beta version to ensure stability and reliability.
-  - Monitor user feedback post-launch to identify additional improvements.
+  - Focus on improving the operational transform layer to reduce false conflicts.
+  - Ensure robust testing for performance at scale and reliability of outputs. 
+
+This brief synthesizes insights from multiple sources, ensuring alignment across teams for a successful launch of the Document Compare feature.
